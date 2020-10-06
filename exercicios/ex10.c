@@ -1,67 +1,139 @@
-////printf("sMMMMMMMMMMMMMMMMs\n");                  
-//printf("sMMMNyyyyyyyyyhMMy\n");
-//printf("sMMMm         sMMy\n");
-//printf("sMMMm        dNdmNy\n");
-//printf("sMMMm       sMy  dN\n");
-//printf("sMMMm        hmmmmy\n");
-//printf("sMMMm    ydhs  Mh  shdy\n");
-//printf("sMMMm     syhdmMNmdhys\n");
-//printf("sMMMm          Mh\n");
-//printf("sMMMm          Mh\n");
-//printf("sMMMm          Mh\n");
-//printf("sMMMm          Md\n");
-//printf("sMMMm        hmhdNy\n");
-//printf("sMMMm      hmh   sdNy\n");
-//printf("sMMMm    hmh       sdNs\n");
-//printf("sMMMm    s           ss\n");
-//printf("sMMMm                    \n");
-//printf("mmmmmmMMMMmmmmmmmmmmmmmmm\n");
-//printf("MMMMMMMMMMMMMMMMMMMMMMMMM\n");
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+#include <ctype.h>
 
-int main() {
-    char pala[50],espa[50]="-",let[50],er[50],tam;
-    int vidas = 5,retor,pts=0,i,n=0;
-    printf("Digite a palavra :");
-    gets(pala);
-    for (i = 0; i <strlen(pala); i++){
-        espa[i]='-';
-        tam=strlen(pala);
-        do{
-            retor=0;
-            printf("\n%s\n",espa);
-            printf("Digite uma letra: ");
-            gets(let);
-            printf("\nLetra digitadas foi %s\n",er);
-            for (i = 0; i < strlen(pala); i++){
-                if (let[0] == pala[i]){
-                    espa[i]= pala[i];
-                    retor++;
-                    pts++;
-                }
-            }
-            if (retor == 0){vidas--;
-                if (vidas == 0){
-                    printf("\nGame Over.");//printf("\nYou died");
-                    printf("\nA palavra era %s \n",pala);
-                    break;
-                }else{
-                    printf("\nVoce errou a letra.\nRestam %d vidas",vidas);
-                    er[n] = let[0];
-                    n++;
-                }
-            }else{
-                if (pts == tam){
-                    printf("\n Voce acertou a palavra, muito bem!\n");
-                    break;
-                }else{
-                    printf("\n Voce acertou a letra continue assim");
-                }
-            }
-        }while(vidas>0);
-    }
-    return 0;
+char pala[20],espa[20],letra,leter[20];
+int i,vidas,acertou,win=0,er,tam;
+
+//void boneco(int er);
+
+int main(){
+    setlocale(LC_ALL, "Portuguese");
+	printf("Digite a palavra chave: ");
+	gets(pala);
+   tam = strlen(pala);
+    system("CLS");
+   er = 0;
+   vidas = 1;
+	for (i = 0; i < tam; i++){
+	  if(isspace(pala[i])||ispunct(pala[i])){
+	      espa[i] = ' ';
+	  }else{
+	      espa[i] = '-';
+	  }
+ 	}
+ 	while (vidas < (tam + 6)) {
+   		win = 1;
+   		acertou = 0;
+        //boneco(er);
+   		for (i =  0; i < tam; i++){
+       		printf("%c", espa[i]);
+   		}
+   		printf("\n");
+   		printf("Digite a letra: ");
+   		scanf("%s", &letra);
+   		for (i = 0; i < tam; i++){
+      		if (pala[i] == letra ){
+         		acertou = 1;
+         		espa[i] = letra;
+      		}/*else{
+      		    leter[i]=letra;
+      		    printf("letras erradas %s\n",leter);
+      		}*/
+    	}
+   		if (acertou == 0){
+      		er+=1;
+    	}
+   		for (i = 0; i < tam; i++){
+      		if (pala[i] != espa[i] ){
+         		win = 0;
+      		}
+    	}
+   		if (win == 1) {
+       		printf("Parabens! Você ganhou!\n");
+       		printf("a palavra/frase digitada é:%s", pala);
+       		break;
+    	}
+    	if (er == 6){
+    		printf("Você perdeu!");
+    		break;
+    	}
+		vidas+=1;
+	}
+	return 0;
 }
+/*void boneco(int er){
+	switch(er){
+		case 0:
+			printf("+---+\n");
+    		printf("|   |\n");
+    		printf("    |\n");
+   			printf("    |\n");
+   			printf("    |\n");
+   			printf("    |\n");
+   			printf("=========\n");
+		break;
+
+		case 1:
+			printf("+---+\n");
+    		printf("|   |\n");
+    		printf("0   |\n");
+    		printf("    |\n");
+    		printf("    |\n");
+    		printf("    |\n");
+    		printf("=========\n");
+		break;
+
+		case 2:
+			printf("+---+\n");
+    		printf("|   |\n");
+		    printf("0   |\n");
+		    printf("|   |\n");
+		    printf("    |\n");
+		    printf("    |\n");
+		    printf("=========\n");
+		break;
+
+		case 3:
+			printf(" +---+\n");
+		    printf(" |   |\n");
+		    printf(" 0   |\n");
+		    printf("´|   |\n");
+		    printf("     |\n");
+		    printf("     |\n");
+		    printf("=========\n");
+		break;
+
+		case 4:
+		   printf(" +---+\n");
+		   printf(" |   |\n");
+		   printf(" 0   |\n");
+		   printf("´|`  |\n");
+		   printf("     |\n");
+		   printf("     |\n");
+		   printf("=========\n");
+		break;
+
+		case 5:
+		   printf(" +---+\n");
+		   printf(" |   |\n");
+		   printf(" 0   |\n");
+		   printf("´|`  |\n");
+		   printf("´    |\n");
+		   printf("     |\n");
+		   printf("=========\n");
+		break;
+
+		case 6:
+		   printf(" +---+\n");
+		   printf(" |   |\n");
+		   printf(" 0   |\n");
+		   printf("´|`  |\n");
+		   printf("´ `  |\n");
+		   printf("     |\n");
+		   printf("=========\n");
+	}
+}*/
+
