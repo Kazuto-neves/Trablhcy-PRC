@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 typedef struct {
     char nome [30];
@@ -14,15 +15,16 @@ int compMedia(const void *fa,const void *fb){
 }
 void lerD (fAluno n[], int N){
     int i;
-    printf("Dados: nome,nota1,nota2\n");
     for (i=0;i<N; i++){
-        printf("\nDigite o nome(%i): ",i+1);
-        scanf("%s",n[i].nome);
-        printf("\nDigite nota 1(%i): ",i+1);
+        setbuf(stdin,NULL);
+        printf("\nDigite o nome: ");
+        gets(n[i].nome);
+        printf("\nDigite nota 1(%s): ",n[i].nome);
         scanf("%f",&n[i].n1);
-        printf("\nDigite o nota 2(%i): ",i+1);
+        printf("\nDigite o nota 2(%s): ",n[i].nome);
         scanf("%f",&n[i].n2);
         printf("------------------------------\n");
+        setbuf(stdin,NULL);
     }   
 }
 void calMedia(fAluno n[], int N){
@@ -38,6 +40,7 @@ void mostrarD(fAluno n[], int N){
 	printf("\n\n\n");
 }
 int main(void) {
+    setlocale(LC_ALL, "Portuguese");
 	fAluno alunos[100];
     int N;
     printf("Digite quantos alunos tem na turma: ");
@@ -48,4 +51,3 @@ int main(void) {
     mostrarD(alunos,N);
 	return 0;
 }
-
