@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 char palavra[20];
 char forca[20];
@@ -93,15 +94,16 @@ int jogo(void) {
     return 0;
 }
 
-void mostrarResultado(int resultado) {
+void mostrarR(int resultado) {
     limpar_input();
     if (resultado == 0) printf("\nVoce perdeu. \nA palavra era %s", palavra);
     else printf("\nParabens, voce acertou a palavra %s ", palavra);
 }
 
 int main() {
+    setlocale(LC_ALL, "Portuguese");
     start();
     int resultado = jogo();
-    mostrarResultado(resultado);
+    mostrarR(resultado);
     return 0;
 }
