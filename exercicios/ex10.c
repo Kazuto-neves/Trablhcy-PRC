@@ -14,7 +14,6 @@ char erros[27];
 #define limpar_tela() system("clear")
 #endif
 
-
 void limparP(char *buf, int tamanho) {
     int i = 0;
     for (i = 0; i < tamanho; i++) buf[i] = 0;
@@ -23,6 +22,7 @@ void fimp(char *str) {
     int p;
     for (p = strlen(str); isspace(str[p]); p--) str[p] = 0;
 }
+
 int erLetra(char c) {return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');}
 char maiuscula(char c) {return (c >= 'a' && c <= 'z') ? (c - 32) : c;}
 
@@ -45,9 +45,8 @@ int jogo(void) {
     int chances = 5;
     int letras = 0;
     int i;
-    for (i = 0; palavra[i] != 0; i++) {
-        if (erLetra(palavra[i])) letras++;
-    }
+    for (i = 0; palavra[i] != 0; i++) if (erLetra(palavra[i])) letras++;
+
     while (chances > 0) {
         limpar_tela();
         printf("\nChances: %d - palavras tem %d letras\n\n", chances, letras);
@@ -64,6 +63,7 @@ int jogo(void) {
                 break;
             }
         }
+        
         if (jaTentou) continue;
         for (i = 0; forca[i] != 0; i++) {
             if (maiuscula(forca[i]) == maiuscula(tentativa)) {
@@ -71,6 +71,7 @@ int jogo(void) {
                 break;
             }
         }
+
         if (jaTentou) continue;
         int ganhou = 1;
         int achou = 0;
@@ -82,6 +83,7 @@ int jogo(void) {
                 } else ganhou = 0;
             }
         }
+
         if (ganhou) return 1;
         if (!achou) {
             chances--;
@@ -90,11 +92,13 @@ int jogo(void) {
     }
     return 0;
 }
+
 void mostrarResultado(int resultado) {
     limpar_input();
     if (resultado == 0) printf("\nVoce perdeu. \nA palavra era %s", palavra);
     else printf("\nParabens, voce acertou a palavra %s ", palavra);
 }
+
 int main() {
     start();
     int resultado = jogo();
