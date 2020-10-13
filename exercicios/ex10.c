@@ -6,14 +6,14 @@
 char palavra[30],forca[30],erros[30];
 
 void limparT(){
-#ifdef _WIN32 || _WIN64 
+#ifdef _WIN32 || _WIN64
 system("cls");
 #else
 system("clear");
 #endif
 }
-void limparT(){
-#ifdef _WIN32 || _WIN64 
+void limparI(){
+#ifdef _WIN32 || _WIN64
 fflush(stdin);
 #else
 fpurge(stdin);
@@ -67,7 +67,7 @@ int jogo(void) {
                 break;
             }
         }
-        
+
         if (jfLetra) continue;
         for (i = 0; forca[i] != 0; i++) {
             if (maiuscula(forca[i]) == maiuscula(tentativa)) {
