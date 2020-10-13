@@ -5,13 +5,20 @@
 
 char palavra[30],forca[30],erros[30];
 
+void limparT(){
 #ifdef _WIN32 || _WIN64 
-#define limpar_input() fflush(stdin)
-#define limpar_tela() system("cls")
+system("cls");
 #else
-#define limpar_input() __fpurge(stdin)
-#define limpar_tela() system("clear")
+system("clear");
 #endif
+}
+void limparT(){
+#ifdef _WIN32 || _WIN64 
+fflush(stdin);
+#else
+__fpurge(stdin);
+#endif
+}
 
 void limparP(char *p, int tam) {
     int i = 0;
@@ -31,7 +38,7 @@ void start(void) {
     limparP(erros, 30);
     printf("\nDigite uma palavra: ");
     fgets(palavra, 30, stdin);
-    limpar_input();
+    limparI();
     fimP(palavra);
     int i;
     for (i = 0; palavra[i] != 0; i++) {
@@ -45,13 +52,13 @@ int jogo(void) {
     for (i = 0; palavra[i] != 0; i++) if (erLetra(palavra[i])) letras++;
 
     while (chances > 0) {
-        limpar_tela();
+        limparT();
         printf("\nChances: %d - palavras tem %d letras\n\n", chances, letras);
         printf("%s", forca);
         if (strlen(erros) > 0) printf("\nErros: %s", erros);
         printf("\n\nDigite uma letra: ");
         scanf("%c", &tentativa);
-        limpar_input();
+        limparI();
         if (!erLetra(tentativa)) continue;
         int jfLetra = 0;
         for (i = 0; erros[i] != 0; i++) {
@@ -90,7 +97,7 @@ int jogo(void) {
 }
 
 void mostrarR(int resultado) {
-    limpar_input();
+    limparI();
     if (resultado == 0) printf("\nVoce perdeu. \nA palavra era %s", palavra);
     else printf("\nParabens, voce acertou a palavra %s ", palavra);
 }
