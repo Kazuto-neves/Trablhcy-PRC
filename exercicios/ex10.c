@@ -16,7 +16,7 @@ void limparT(){
 #ifdef _WIN32 || _WIN64 
 fflush(stdin);
 #else
-__fpurge(stdin);
+fpurge(stdin);
 #endif
 }
 
