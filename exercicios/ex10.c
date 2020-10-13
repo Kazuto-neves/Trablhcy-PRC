@@ -14,13 +14,13 @@ char erros[27];
 #define limpar_tela() system("clear")
 #endif
 
-void limparP(char *buf, int tamanho) {
+void limparP(char *p, int tam) {
     int i = 0;
-    for (i = 0; i < tamanho; i++) buf[i] = 0;
+    for (i = 0; i < tam; i++) p[i] = 0;
 }
-void fimp(char *str) {
+void fimP(char *pl) {
     int p;
-    for (p = strlen(str); isspace(str[p]); p--) str[p] = 0;
+    for (p = strlen(pl); isspace(pl[p]); p--) pl[p] = 0;
 }
 
 int erLetra(char c) {return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');}
@@ -33,7 +33,7 @@ void start(void) {
     printf("\nDigite uma palavra: ");
     fgets(palavra, 20, stdin);
     limpar_input();
-    fimp(palavra);
+    fimP(palavra);
     int i;
     for (i = 0; palavra[i] != 0; i++) {
         char c = palavra[i];
@@ -56,23 +56,23 @@ int jogo(void) {
         scanf("%c", &tentativa);
         limpar_input();
         if (!erLetra(tentativa)) continue;
-        int jaTentou = 0;
+        int jfLetra = 0;
         for (i = 0; erros[i] != 0; i++) {
             if (erros[i] == maiuscula(tentativa)) {
-                jaTentou = 1;
+                jfLetra = 1;
                 break;
             }
         }
         
-        if (jaTentou) continue;
+        if (jfLetra) continue;
         for (i = 0; forca[i] != 0; i++) {
             if (maiuscula(forca[i]) == maiuscula(tentativa)) {
-                jaTentou = 1;
+                jfLetra = 1;
                 break;
             }
         }
 
-        if (jaTentou) continue;
+        if (jfLetra) continue;
         int ganhou = 1;
         int achou = 0;
         for (i = 0; palavra[i] != 0; i++) {if (!erLetra(palavra[i])) continue;
