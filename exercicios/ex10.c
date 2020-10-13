@@ -3,9 +3,7 @@
 #include <string.h>
 #include <locale.h>
 
-char palavra[20];
-char forca[20];
-char erros[27];
+char palavra[30],forca[30],erros[30];
 
 #ifdef _WIN32 || _WIN64 
 #define limpar_input() fflush(stdin)
@@ -28,11 +26,11 @@ int erLetra(char c) {return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');}
 char maiuscula(char c) {return (c >= 'a' && c <= 'z') ? (c - 32) : c;}
 
 void start(void) {
-    limparP(palavra, 20);
-    limparP(forca, 20);
-    limparP(erros, 27);
+    limparP(palavra, 30);
+    limparP(forca, 30);
+    limparP(erros, 30);
     printf("\nDigite uma palavra: ");
-    fgets(palavra, 20, stdin);
+    fgets(palavra, 30, stdin);
     limpar_input();
     fimP(palavra);
     int i;
@@ -43,9 +41,7 @@ void start(void) {
 }
 int jogo(void) {
     char tentativa;
-    int chances = 5;
-    int letras = 0;
-    int i;
+    int chances=5,letras=0,i;
     for (i = 0; palavra[i] != 0; i++) if (erLetra(palavra[i])) letras++;
 
     while (chances > 0) {
