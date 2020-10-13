@@ -56,7 +56,7 @@ int jogo(void) {
         int jfLetra = 0;
         for (i = 0; erros[i] != 0; i++) {
             if (erros[i] == maiuscula(tentativa)) {
-                jfLetra = 1;
+                jfLetra=1;
                 break;
             }
         }
@@ -64,20 +64,19 @@ int jogo(void) {
         if (jfLetra) continue;
         for (i = 0; forca[i] != 0; i++) {
             if (maiuscula(forca[i]) == maiuscula(tentativa)) {
-                jfLetra = 1;
+                jfLetra=1;
                 break;
             }
         }
 
         if (jfLetra) continue;
-        int ganhou = 1;
-        int achou = 0;
+        int ganhou=1,achou=0;
         for (i = 0; palavra[i] != 0; i++) {if (!erLetra(palavra[i])) continue;
             if (forca[i] == '_') {
                 if (maiuscula(palavra[i]) == maiuscula(tentativa)) {
                     forca[i] = palavra[i];
-                    achou = 1;
-                } else ganhou = 0;
+                    achou= 1;
+                } else ganhou=0;
             }
         }
 
