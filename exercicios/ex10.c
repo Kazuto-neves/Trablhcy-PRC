@@ -6,7 +6,7 @@ char palavra[20];
 char forca[20];
 char erros[27];
 
-#if defined(_MINGW32_) || defined(_MSC_VER)
+#ifdef _WIN32 || _WIN64 
 #define limpar_input() fflush(stdin)
 #define limpar_tela() system("cls")
 #else
@@ -14,70 +14,49 @@ char erros[27];
 #define limpar_tela() system("clear")
 #endif
 
-void limparBuffer(char *buf, int tamanho) {
+
+void limparP(char *buf, int tamanho) {
     int i = 0;
-    for (i = 0; i < tamanho; i++) {
-        buf[i] = 0;
-    }
+    for (i = 0; i < tamanho; i++) buf[i] = 0;
 }
-
-void trimEnd(char *str) {
+void fimp(char *str) {
     int p;
-    for (p = strlen(str); isspace(str[p]); p--) {
-        str[p] = 0;
-    }
+    for (p = strlen(str); isspace(str[p]); p--) str[p] = 0;
 }
-
-int ehLetra(char c) {
-    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
-}
-
-char maiuscula(char c) {
-    return (c >= 'a' && c <= 'z') ? (c - 32) : c;
-}
+int erLetra(char c) {return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');}
+char maiuscula(char c) {return (c >= 'a' && c <= 'z') ? (c - 32) : c;}
 
 void start(void) {
-    limparBuffer(palavra, 20);
-    limparBuffer(forca, 20);
-    limparBuffer(erros, 27);
-
+    limparP(palavra, 20);
+    limparP(forca, 20);
+    limparP(erros, 27);
     printf("\nDigite uma palavra: ");
     fgets(palavra, 20, stdin);
     limpar_input();
-
-    trimEnd(palavra);
-
+    fimp(palavra);
     int i;
     for (i = 0; palavra[i] != 0; i++) {
         char c = palavra[i];
-        forca[i] = ehLetra(c) ? '_' : c;
+        forca[i] = erLetra(c) ? '_' : c;
     }
 }
-
 int jogo(void) {
     char tentativa;
     int chances = 5;
-
     int letras = 0;
     int i;
     for (i = 0; palavra[i] != 0; i++) {
-        if (ehLetra(palavra[i])) letras++;
+        if (erLetra(palavra[i])) letras++;
     }
-
     while (chances > 0) {
         limpar_tela();
         printf("\nChances: %d - palavras tem %d letras\n\n", chances, letras);
-
         printf("%s", forca);
-        if (strlen(erros) > 0) {
-            printf("\nErros: %s", erros);
-        }
-
+        if (strlen(erros) > 0) printf("\nErros: %s", erros);
         printf("\n\nDigite uma letra: ");
         scanf("%c", &tentativa);
         limpar_input();
-
-        if (!ehLetra(tentativa)) continue;
+        if (!erLetra(tentativa)) continue;
         int jaTentou = 0;
         for (i = 0; erros[i] != 0; i++) {
             if (erros[i] == maiuscula(tentativa)) {
@@ -93,23 +72,17 @@ int jogo(void) {
             }
         }
         if (jaTentou) continue;
-
         int ganhou = 1;
         int achou = 0;
-        for (i = 0; palavra[i] != 0; i++) {
-            if (!ehLetra(palavra[i])) continue;
+        for (i = 0; palavra[i] != 0; i++) {if (!erLetra(palavra[i])) continue;
             if (forca[i] == '_') {
                 if (maiuscula(palavra[i]) == maiuscula(tentativa)) {
                     forca[i] = palavra[i];
                     achou = 1;
-                } else {
-                    ganhou = 0;
-                }
+                } else ganhou = 0;
             }
         }
-
-        if (ganhou) {return 1;
-        }
+        if (ganhou) return 1;
         if (!achou) {
             chances--;
             erros[strlen(erros)] = maiuscula(tentativa);
@@ -117,14 +90,10 @@ int jogo(void) {
     }
     return 0;
 }
-
 void mostrarResultado(int resultado) {
     limpar_input();
-    if (resultado == 0) {
-        printf("\nVoce perdeu. \nA palavra era %s", palavra);
-    } else {
-        printf("\nParabens, voce acertou a palavra %s ", palavra);
-    }
+    if (resultado == 0) printf("\nVoce perdeu. \nA palavra era %s", palavra);
+    else printf("\nParabens, voce acertou a palavra %s ", palavra);
 }
 int main() {
     start();
