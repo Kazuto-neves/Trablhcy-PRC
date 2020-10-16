@@ -7,14 +7,14 @@
 char palavra[30],forca[30],erros[30];
 
 void limparT(){
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 system("cls");
 #else
 system("clear");
 #endif
 }
 void limparI(){
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 fflush(stdin);
 #else
 __fpurge(stdin);
