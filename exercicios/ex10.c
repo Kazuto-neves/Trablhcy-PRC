@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <locale.h>
 
 char palavra[30],forca[30],erros[30];
 int jfLetra = 0,ganhou=1,achou=0,i;
 
 void limparT(){
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 system("cls");
 #else
 system("clear");
 #endif
 }
 void limparI(){
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 fflush(stdin);
 #else
 fpurge(stdin);
