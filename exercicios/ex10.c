@@ -4,6 +4,7 @@
 #include <locale.h>
 
 char palavra[30],forca[30],erros[30];
+int jfLetra = 0,ganhou=1,achou=0,i;
 
 void limparT(){
 #ifdef _WIN32 || _WIN64
@@ -40,7 +41,6 @@ void start(void) {
     fgets(palavra, 30, stdin);
     limparI();
     fimP(palavra);
-    int i;
     for (i = 0; palavra[i] != 0; i++) {
         char c = palavra[i];
         forca[i] = erLetra(c) ? '_' : c;
@@ -60,7 +60,6 @@ int jogo(void) {
         scanf("%c", &tentativa);
         limparI();
         if (!erLetra(tentativa)) continue;
-        int jfLetra = 0;
         for (i = 0; erros[i] != 0; i++) {
             if (erros[i] == maiuscula(tentativa)) {
                 jfLetra=1;
@@ -77,7 +76,6 @@ int jogo(void) {
         }
 
         if (jfLetra) continue;
-        int ganhou=1,achou=0;
         for (i = 0; palavra[i] != 0; i++) {if (!erLetra(palavra[i])) continue;
             if (forca[i] == '_') {
                 if (maiuscula(palavra[i]) == maiuscula(tentativa)) {
