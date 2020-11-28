@@ -44,11 +44,11 @@ int main(){
         case 1: /*inserir*/
     	   lerBrinquedo(&disc);
           inserir(&hist, disc);
-          
+
            pausar("Inserido com sucesso!");
            break;
         case 2: /*remover*/
-           printf("Entre com o codigo da Contatos para remover:");
+           printf("Entre com o codigo da Brinquedo para remover:");
            scanf("%s", em);
            if (existe(hist, em)){
               remover(&hist, em);
@@ -57,10 +57,10 @@ int main(){
               pausar("Codigo nao encontrado!");
            break;
         case 3: /*alterar*/
-           printf("Entre com o codigo da Contatos para alterar:");
+           printf("Entre com o codigo da Brinquedo para alterar:");
            scanf("%s", em);
            if (existe(hist, em)){
-              lerContatos(&disc);
+              lerBrinquedo(&disc);
               alterar(&hist, em, disc);
               pausar("Alterado com sucesso!");
            } else
