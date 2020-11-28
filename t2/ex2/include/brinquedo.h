@@ -4,7 +4,7 @@
 typedef struct{
     int codigo,qtd;
     char nome[30],cat[20];
-    double preco;
+    float preco;
 }Brinquedo;
 
 typedef struct{
@@ -23,5 +23,6 @@ void alterar(Brinquedos *h, int codigo, Brinquedo d);
 void acrecentar(Brinquedos *h, int codigo, Brinquedo d);
 void listar(Brinquedos h);
 void mostrar(Brinquedos h);
+//void acrecentar (Brinquedos *h, Brinquedo *d, int codigo);
 
 #endif // DEBUG

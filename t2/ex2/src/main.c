@@ -34,8 +34,7 @@ int menu(){
 int main(){
    Brinquedos   hist;
    Brinquedo disc;
-   int  fim;
-   char em[_NOME_MAX_LEN_];
+   int  fim,cod;
 
    fim = 0;
    inicializar(&hist);
@@ -49,19 +48,19 @@ int main(){
            break;
         case 2: /*remover*/
            printf("Entre com o codigo da Brinquedo para remover:");
-           scanf("%s", em);
-           if (existe(hist, em)){
-              remover(&hist, em);
+           scanf("%d", &cod);
+           if (existe(hist, cod)){
+              remover(&hist, cod);
               pausar("Removido com sucesso!");
            } else
               pausar("Codigo nao encontrado!");
            break;
         case 3: /*alterar*/
            printf("Entre com o codigo da Brinquedo para alterar:");
-           scanf("%s", em);
-           if (existe(hist, em)){
+           scanf("%d", &cod);
+           if (existe(hist, cod)){
               lerBrinquedo(&disc);
-              alterar(&hist, em, disc);
+              alterar(&hist, cod, disc);
               pausar("Alterado com sucesso!");
            } else
               pausar("Codigo nao encontrado!");

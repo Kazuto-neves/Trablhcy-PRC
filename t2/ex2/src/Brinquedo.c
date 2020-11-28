@@ -1,10 +1,8 @@
 #include<stdio.h>
-#include<strings.h>
+#include<string.h>
 #include<stdlib.h>
 
 #include"brinquedo.h"
-
-
 void lerString(char str[], int max){
    int tam;
    fflush(stdin);
@@ -14,7 +12,7 @@ void lerString(char str[], int max){
       str[tam-1]='\0';
 }
 
-void lerBriquedo(Brinquedo *d){
+void lerBrinquedo(Brinquedo *d){
    printf("Codigo:");		scanf("%d",& (*d).codigo);
    printf("Nome:");		lerString((*d).nome, 30);
    printf("Categoria:");	lerString((*d).cat,20);
@@ -25,7 +23,7 @@ void lerBriquedo(Brinquedo *d){
 void mostrarBriquedo(Brinquedo d){
    printf("Codigo:%d\n",d.codigo);
    printf("Nome:%s\n",d.nome);
-   printf("Categoria:%s\n",d.Email);
+   printf("Categoria:%s\n",d.cat);
    printf("Preco: R$%.2f\n",d.preco);
    printf("quantidade:%d\n",d.qtd);
 }
@@ -42,7 +40,7 @@ int obterIndice(Brinquedos h, int codigo){
    int achou,i;
    achou=0;
    i=0;
-   while (!achou && i<h.qtd)
+   while (!achou && i<h.q)
       if (h.vet[i].codigo==codigo)
          achou = 1;
       else
@@ -89,7 +87,7 @@ void mostrar(Brinquedos h){
    listar(h);
 }
 
-void acrecentar (Brinquedos *h, Brinquedo *d, int codigo){
+/*void acrecentar (Brinquedos *h, Brinquedo *d, int codigo){
     int pos = obterIndice(*h, codigo);
     int posB;
     int k, acabou=0;
@@ -97,7 +95,7 @@ void acrecentar (Brinquedos *h, Brinquedo *d, int codigo){
     if (pos > -1){
        antes=(*h).vet[pos].qtd;
        printf("Insira o nova quantidade:\n");
-       limparTela();
        scanf(" %f", &inputf);
        (*h).vet[pos].qtd = inputf+antes;
        }
+}*/
