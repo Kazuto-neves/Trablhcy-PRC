@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define max 100
+
+typedef struct
+{
+	double vetor[max], copy[max], aux[max];
+	int quant, qtd;
+
+
+}conj;
+
+
+
+
+void ler(conj *a)
+{
+	int i;
+	printf("Digite a quantidade de numeros para o conjunto:");
+	scanf("%d", &(*a).quant);
+	printf("Os numeros, por favor:\n");
+	for(i=0;i<(*a).quant; i++)
+	   scanf("%lf", &(*a).vetor[i]);	
+}
+
+int pop (const void *x, const void *y)
+{
+   const double *A = x, *B = y;
+   return (*A > *B) - (*A < *B);
+}
+
+
+
+    
+void remover(conj *a)
+{
+	int i,j=0;
+	for(i=0;i<(*a).quant-1;i++)
+	{
+		if((*a).vetor[i]!=(*a).vetor[i+1])
+		{
+			(*a).copy[j]=(*a).vetor[i];
+			j++;
+		}	
+	}
+	(*a).copy[j]=(*a).vetor[(*a).quant-1];
+	(*a).qtd=j+1;
+	
+}
+int existe(double x, conj c)
+{
+   int i;
+   	for(i=0;i<c.qtd;i++)
+	   {
+	   	if(c.copy[i]==x) return -1;
+	   }
+   		
+   	return 1;  
+	
+}
+void uniao(conj a, conj b, conj *c)
+{
+	int i;
+	double j;
+	for(i=0;i<a.qtd;i++)
+	   (*c).copy[i]=a.copy[i];
+	(*c).qtd=a.qtd;
+	for(i=0;i<b.qtd;i++)
+	{
+		j=b.copy[i];
+		if(existe(j,*c)!=-1)
+		{
+			(*c).copy[(*c).qtd]=b.copy[i];
+			(*c).qtd++;
+		}
+		qsort((*c).copy,(*c).qtd, sizeof(double), pop);
+		j=0;
+	}
+}
+
+
+
+void mostrar (conj a)
+{
+	int i;
+	if(a.qtd==0)
+	    printf("vazio");
+	else 
+		for(i=0;i<a.qtd;i++)
+		   printf("|%0.2lf|", a.copy[i]);
+	printf("\n");	
+}
+int main ()
+{
+	conj a,b,c,d,e;
+	
+	printf("***Digite os numeros para o conjunto A***\n");
+	ler(&a);
+	qsort(a.vetor,a.quant, sizeof(double), pop);
+	
+	printf("***Digite os numeros para o conjunto B***\n");
+	ler(&b);
+	qsort(b.vetor,b.quant, sizeof(double),pop);
+	
+	remover(&a);
+	remover(&b);
+	
+	printf("elementos de a:");
+	mostrar(a);
+	printf("elementos de b:");
+	mostrar(b);
+	printf("uniao:");
+	uniao(a,b,&c);
+	mostrar(c);
+	printf("interseccao:");
+	inter(a,b,&d);
+	mostrar(d);
+	
+	
+	
+	return 0;
+}
+
