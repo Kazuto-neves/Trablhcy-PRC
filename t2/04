@@ -11,6 +11,14 @@ typedef struct
 }conj;
 
 
+typedef struct
+{
+	double v[max], aux[max];
+	int  qtd2;
+
+
+}tconj;
+
 
 
 void ler(conj *a)
@@ -68,7 +76,7 @@ void uniao(conj a, conj b, conj *c)
 	for(i=0;i<b.qtd;i++)
 	{
 		j=b.copy[i];
-		if(existe(j,*c)!=-1)
+		if(existe(j,*c)==1)
 		{
 			(*c).copy[(*c).qtd]=b.copy[i];
 			(*c).qtd++;
@@ -77,7 +85,22 @@ void uniao(conj a, conj b, conj *c)
 		j=0;
 	}
 }
-
+void inter(conj a, conj b, tconj *d)
+{
+	int i,k=0;
+	double j;
+	for(i=0;i<a.qtd;i++)
+	{
+		j=a.copy[i];
+		if(existe(j,b)==-1)
+		{
+			(*d).v[(*d).qtd2]=a.copy[i];
+			(*d).qtd2++;
+		}
+	}
+	
+	
+}
 
 
 void mostrar (conj a)
@@ -90,9 +113,21 @@ void mostrar (conj a)
 		   printf("|%0.2lf|", a.copy[i]);
 	printf("\n");	
 }
+
+void mostrar2(tconj a)
+{
+	int i;
+	if(a.qtd2==0)
+	    printf("vazio");
+	else 
+		for(i=0;i<a.qtd2;i++)
+		   printf("|%0.2lf|", a.v[i]);
+	printf("\n");	
+}
 int main ()
 {
-	conj a,b,c,d,e;
+	conj a,b,c;
+	tconj d,e;
 	
 	printf("***Digite os numeros para o conjunto A***\n");
 	ler(&a);
@@ -114,10 +149,11 @@ int main ()
 	mostrar(c);
 	printf("interseccao:");
 	inter(a,b,&d);
-	mostrar(d);
+	mostrar2(d);
 	
 	
 	
 	return 0;
 }
+
 
