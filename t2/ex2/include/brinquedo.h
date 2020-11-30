@@ -1,28 +1,24 @@
-#ifndef _Brinquedo_H_
-#define _Brinquedo_H_
+#ifndef _BRINQUEDO_H_
+#define _BRINQUEDO_H_
+
+#include"uteis.h"
+
+#define _TAM_NOME_	 30
 
 typedef struct{
+    char nome[_TAM_NOME_], cat[_TAM_NOME_];
     int codigo,qtd;
-    char nome[30],cat[20];
-    float preco;
-}Brinquedo;
+    double Preco;
+} Brinquedo;
 
 typedef struct{
-    Brinquedo vet[100];
-    int q;
-}Brinquedos;
+  Brinquedo v[20];
+  int    q;
+} Brinquedos;
 
-void lerBrinquedo(Brinquedo *d);
-void mostrarBriquedo(Brinquedo d);
+void lerBriquendo (Brinquedo *a);
+int obterIndiceBriquendo (Brinquedos a, int codigo);
+void mostrarBrinquedo (Brinquedos a, int codigo);
 
-void inicializar(Brinquedos *h);
-void inserir(Brinquedos *h, Brinquedo d);
-int existe(Brinquedos h, int codigo);
-void remover(Brinquedos *h,int codigo);
-void alterar(Brinquedos *h, int codigo, Brinquedo d);
-void acrecentar(Brinquedos *h, int codigo, Brinquedo d);
-void listar(Brinquedos h);
-void mostrar(Brinquedos h);
-//void acrecentar (Brinquedos *h, Brinquedo *d, int codigo);
 
-#endif // DEBUG
+#endif

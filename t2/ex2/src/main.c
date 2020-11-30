@@ -1,78 +1,37 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include"brinquedo.h"
+#include "brinquedo.h"
+#include "Historico.h"
+#include "uteis.h"
 
-void limparTela(){
-   system("cls");
-}
-
-void pausar(char msg[]){
-   if (msg!=NULL)
-     printf("%s\n",msg);
-   system("pause");
-}
-
-int menu(){
-  int opc;
-  do {
-    limparTela();
-    printf("1-Inserir\n");
-    printf("2-Remover\n");
-    printf("3-Alterar\n");
-    printf("4-Listar\n");
-    printf("5-Sair\n");
-    printf("\nEntre com a sua opcao:");
-    scanf("%d", &opc);
-  } while (opc<1 || opc>5);
-  fflush(stdin);
-  limparTela();
-  return opc;
-}
-
-
-int main(){
-   Brinquedos   hist;
-   Brinquedo disc;
-   int  fim,cod;
-
-   fim = 0;
-   inicializar(&hist);
-   while(!fim){
-     switch(menu()){
-        case 1: /*inserir*/
-    	   lerBrinquedo(&disc);
-          inserir(&hist, disc);
-
-           pausar("Inserido com sucesso!");
-           break;
-        case 2: /*remover*/
-           printf("Entre com o codigo da Brinquedo para remover:");
-           scanf("%d", &cod);
-           if (existe(hist, cod)){
-              remover(&hist, cod);
-              pausar("Removido com sucesso!");
-           } else
-              pausar("Codigo nao encontrado!");
-           break;
-        case 3: /*alterar*/
-           printf("Entre com o codigo da Brinquedo para alterar:");
-           scanf("%d", &cod);
-           if (existe(hist, cod)){
-              lerBrinquedo(&disc);
-              alterar(&hist, cod, disc);
-              pausar("Alterado com sucesso!");
-           } else
-              pausar("Codigo nao encontrado!");
-           break;
-        case 4: /*Agenda*/
-           mostrar(hist);
-           pausar(NULL);
-           break;
-        case 5:/*fim*/
-           fim=1;
-           break;
-     }
-   }
-   return 0;
+int main (){
+    Brinquedo Brinquedo;
+    Historico a;
+    Brinquedos b;
+    int k=1, codigo;
+    inicializarHistorico(&a); inicializarBriquendos(&b);
+    while ( k != 0 )
+    {
+        limparTela();
+        printf("\tBem vindo ao sistema academico da FAETERJ! O que deseja fazer?\n\n");
+        printf("1. Adicionar uma Brinquedo.\n2. Inserir Brinquedo no historico.\n3. Mostrar dados de uma Brinquedo.\n"
+            "4. Remover uma Brinquedo.\n5. Alterar os dados de uma Brinquedo.\n6. Listar todas as Brinquedos disponiveis.\n7. Listar historico atual.\n"
+            "0. Encerrar programa.\n");
+        scanf(" %d", &k); limpa();
+        switch (k)
+        {
+            case 1: limparTela(); lerBriquendo (&Brinquedo); adicionarBrinquedo(&b, Brinquedo); break;
+            case 2: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); inserirBrinquedo(&a, b, codigo); break;
+            case 3: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); mostrarBrinquedo(b, codigo); pausarTela(); break;
+            case 4: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); removerBrinquedo(&a, &b, codigo); break;
+            case 5: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); alterarBrinquedo(&a, &b, codigo); break;
+            case 6: limparTela(); listarBrinquedo(b); pausarTela(); break;
+            case 7: limparTela(); listarHistorico(a); pausarTela(); break;
+            case 0: printf("Encerrando programa...\n"); break;
+            default: printf("Opcao invalida! Tente novamente.\n"); pausarTela(); break;
+        }
+    }
+    return 0;
 }
