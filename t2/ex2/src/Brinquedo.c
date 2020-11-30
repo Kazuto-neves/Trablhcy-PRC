@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 
-#include"briquedo.h"
+#include"brinquedo.h"
 #include"uteis.h"
 
 void lerBriquendo (Brinquedo *a){
