@@ -7,11 +7,11 @@
 #include "uteis.h"
 
 int main (){
-    Brinquedo Brinquedo;
-    Historico a;
-    Brinquedos b;
+    Brinquedo a;
+    Historico b;
+    Brinquedos c;
     int k=1, codigo;
-    inicializarHistorico(&a); inicializarBriquendos(&b);
+    inicializarHistorico(&b); inicializarBriquendos(&c);
     while ( k != 0 )
     {
         limparTela();
@@ -22,13 +22,13 @@ int main (){
         scanf(" %d", &k); limpa();
         switch (k)
         {
-            case 1: limparTela(); lerBriquendo (&Brinquedo); adicionarBrinquedo(&b, Brinquedo); break;
-            case 2: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); inserirBrinquedo(&a, b, codigo); break;
-            case 3: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); mostrarBrinquedo(b, codigo); pausarTela(); break;
-            case 4: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); removerBrinquedo(&a, &b, codigo); break;
-            case 5: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); alterarBrinquedo(&a, &b, codigo); break;
-            case 6: limparTela(); listarBrinquedo(b); pausarTela(); break;
-            case 7: limparTela(); listarHistorico(a); pausarTela(); break;
+            case 1: limparTela(); lerBriquendo (&a); adicionarBrinquedo(&c, b); break;
+            case 2: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); inserirBrinquedo(&b, c, codigo); break;
+            case 3: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); mostrarBrinquedo(c, codigo); pausarTela(); break;
+            case 4: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); removerBrinquedo(&b, &c, codigo); break;
+            case 5: limparTela(); printf("Insira o ID referente a Brinquedo:\n"); scanf(" %d", &codigo); alterarBrinquedo(&b, &c, codigo); break;
+            case 6: limparTela(); listarBrinquedo(c); pausarTela(); break;
+            case 7: limparTela(); listarHistorico(b); pausarTela(); break;
             case 0: printf("Encerrando programa...\n"); break;
             default: printf("Opcao invalida! Tente novamente.\n"); pausarTela(); break;
         }
