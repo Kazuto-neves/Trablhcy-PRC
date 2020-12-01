@@ -15,7 +15,7 @@ int main (){
     while ( k != 0 )
     {
         limparTela();
-        printf("\tBem vindo ao sistema academico da FAETERJ! O que deseja fazer?\n\n");
+        printf("\tBem vindo a Loja de Briquedos do Mozar O que deseja fazer?\n\n");
         printf("1. Adicionar uma Brinquedo.\n2. Inserir Brinquedo no historico.\n3. Mostrar dados de uma Brinquedo.\n"
             "4. Remover uma Brinquedo.\n5. Alterar os dados de uma Brinquedo.\n6. Listar todas as Brinquedos disponiveis.\n7. Listar historico atual.\n"
             "0. Encerrar programa.\n");
