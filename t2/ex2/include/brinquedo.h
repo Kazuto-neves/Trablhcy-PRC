@@ -4,15 +4,16 @@
 #include"uteis.h"
 
 #define _TAM_NOME_	 30
+#define _TAM_NOME_2  20
 
 typedef struct{
-    char nome[_TAM_NOME_], cat[_TAM_NOME_];
+    char nome[_TAM_NOME_], cat[_TAM_NOME_2];
     int codigo,qtd;
     double Preco;
 } Brinquedo;
 
 typedef struct{
-  Brinquedo v[20];
+  Brinquedo v[_TAM_NOME_2];
   int    q;
 } Brinquedos;
 

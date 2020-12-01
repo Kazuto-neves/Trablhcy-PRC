@@ -8,7 +8,7 @@ void lerBriquendo (Brinquedo *a){
     printf("Entre com o codigo da briquedo: "); scanf(" %d", &(*a).codigo);
     limpa();
     printf("Entre com o nome do brinquedo: "); lerString( (*a).nome, _TAM_NOME_ );
-    printf("Entre com o catgoria do briquedo: "); lerString( (*a).cat, _TAM_NOME_ );
+    printf("Entre com o catgoria do briquedo: "); lerString( (*a).cat, _TAM_NOME_2 );
     printf("Entre com o Preco do briquedo: "); scanf(" %lf", &(*a).Preco);
     printf("Entre com a quantidade  do brinquedo: "); scanf(" %d", &(*a).qtd);
     limpa();
