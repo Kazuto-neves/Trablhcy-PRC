@@ -4,31 +4,35 @@
 
 typedef struct
 {
-	double vetor[max], copy[max], aux[max];
-	int quant, qtd;
+	double vetor[max], copy[max];
+	int quant, qtd,extra;
 
 
 }conj;
 
-
-typedef struct
+void limpar()
 {
-	double v[max], aux[max];
-	int  qtd2;
+    #ifdef __unix__
+        system("clear");
+    #elif _WIN32
+        system("cls");
+    #elif _WIN64
+        system("cls");
+    #endif
+}
 
 
-}tconj;
-
-
-
-void ler(conj *a)
+int loop(int x)
 {
-	int i;
-	printf("Digite a quantidade de numeros para o conjunto:");
-	scanf("%d", &(*a).quant);
-	printf("Os numeros, por favor:\n");
-	for(i=0;i<(*a).quant; i++)
-	   scanf("%lf", &(*a).vetor[i]);	
+    int denovo;
+	while(1){
+	    printf("Opção invalida\n");
+	    printf("Digite novamente: ");
+		scanf("%d", &denovo);
+		
+		if((0<=denovo) && (denovo<=3)) break;	
+	}
+    return denovo;
 }
 
 int pop (const void *x, const void *y)
@@ -37,12 +41,22 @@ int pop (const void *x, const void *y)
    return (*A > *B) - (*A < *B);
 }
 
+void mostrar (conj a)
+{
+	int i;
+	if(a.qtd==0)
+	    printf("vazio");
+	else 
+		for(i=0;i<a.qtd;i++)
+		   printf("|%0.2lf|", a.copy[i]);
+	printf("\n");	
+}  
 
 
-    
 void remover(conj *a)
 {
 	int i,j=0;
+	qsort((*a).vetor,(*a).quant, sizeof(double), pop);
 	for(i=0;i<(*a).quant-1;i++)
 	{
 		if((*a).vetor[i]!=(*a).vetor[i+1])
@@ -53,6 +67,21 @@ void remover(conj *a)
 	}
 	(*a).copy[j]=(*a).vetor[(*a).quant-1];
 	(*a).qtd=j+1;
+	
+	
+}
+
+
+void ler(conj *a)
+{
+	int i;
+	printf("Digite a quantidade de numeros para o conjunto:");
+	scanf("%d", &(*a).quant);
+	if((*a).quant>100)(*a).quant=loop((*a).quant);
+	printf("Os numeros, por favor:\n");
+	for(i=0;i<(*a).quant; i++)
+	   scanf("%lf", &(*a).vetor[i]);	
+	
 	
 }
 int existe(double x, conj c)
@@ -66,6 +95,8 @@ int existe(double x, conj c)
    	return 1;  
 	
 }
+
+
 void uniao(conj a, conj b, conj *c)
 {
 	int i;
@@ -76,7 +107,7 @@ void uniao(conj a, conj b, conj *c)
 	for(i=0;i<b.qtd;i++)
 	{
 		j=b.copy[i];
-		if(existe(j,*c)==1)
+		if(existe(j,*c)!=-1)
 		{
 			(*c).copy[(*c).qtd]=b.copy[i];
 			(*c).qtd++;
@@ -84,76 +115,73 @@ void uniao(conj a, conj b, conj *c)
 		qsort((*c).copy,(*c).qtd, sizeof(double), pop);
 		j=0;
 	}
+	printf("\n");
+	printf("uniao AUB: ");
+	mostrar(*c);
 }
-void inter(conj a, conj b, tconj *d)
+void inter(conj a, conj b, conj *d)
 {
-	int i,k=0;
+	int i;
 	double j;
+	(*d).qtd=0;
 	for(i=0;i<a.qtd;i++)
 	{
 		j=a.copy[i];
 		if(existe(j,b)==-1)
 		{
-			(*d).v[(*d).qtd2]=a.copy[i];
-			(*d).qtd2++;
+			(*d).copy[(*d).qtd]=a.copy[i];
+			(*d).qtd++;
 		}
 	}
-	
+	printf("\n");
+	printf("interseccao A B: ");
+	mostrar(*d);
 	
 }
 
-
-void mostrar (conj a)
+void dif(conj a, conj b, conj *e)
 {
 	int i;
-	if(a.qtd==0)
-	    printf("vazio");
-	else 
-		for(i=0;i<a.qtd;i++)
-		   printf("|%0.2lf|", a.copy[i]);
-	printf("\n");	
+	double j;
+	(*e).qtd=0;
+	for(i=0;i<a.qtd;i++)
+	{
+		j=a.copy[i];
+		if(existe(j,b)==1)
+		{
+			(*e).copy[(*e).qtd]=a.copy[i];
+			(*e).qtd++;
+		}
+	}
+	printf("\n");
+	printf("diferenca A-B: ");	
+	mostrar(*e);
+	
 }
 
-void mostrar2(tconj a)
+void ex(conj a, conj b)
 {
-	int i;
-	if(a.qtd2==0)
-	    printf("vazio");
-	else 
-		for(i=0;i<a.qtd2;i++)
-		   printf("|%0.2lf|", a.v[i]);
-	printf("\n");	
-}
+	limpar();
+	printf("***OPERACOES DOS CONJUNTO ****\n");
+	printf("Conjunto de A:");
+	mostrar(a);
+	printf("Conjunto de B:");	
+	mostrar(b);
+	
+}	       
 int main ()
 {
-	conj a,b,c;
-	tconj d,e;
-	
-	printf("***Digite os numeros para o conjunto A***\n");
+	conj a,b,c,d,e;
+	printf("Conjuntos Numericos\n");
+        printf("***Conjunto A***\n");
 	ler(&a);
-	qsort(a.vetor,a.quant, sizeof(double), pop);
-	
-	printf("***Digite os numeros para o conjunto B***\n");
-	ler(&b);
-	qsort(b.vetor,b.quant, sizeof(double),pop);
-	
+	printf("***Conjunto B***\n");
+	ler(&b);      
 	remover(&a);
 	remover(&b);
-	
-	printf("elementos de a:");
-	mostrar(a);
-	printf("elementos de b:");
-	mostrar(b);
-	printf("uniao:");
+	ex(a,b);
 	uniao(a,b,&c);
-	mostrar(c);
-	printf("interseccao:");
 	inter(a,b,&d);
-	mostrar2(d);
-	
-	
-	
+	dif(a,b,&e);
 	return 0;
 }
-
-
