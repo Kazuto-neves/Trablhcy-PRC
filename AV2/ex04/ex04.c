@@ -2,13 +2,10 @@
 #include <stdlib.h>
 #define max 100
 
-
 typedef struct
 {
 	double vetor[max], copy[max];
-	int quant, qtd,extra;
-
-
+	int quant, qtd;
 }conj;
 
 void limpar()
@@ -22,7 +19,6 @@ void limpar()
     #endif
 }
 
-
 int loop(int x)
 {
     int denovo;
@@ -30,8 +26,8 @@ int loop(int x)
 	    printf("Opcao invalida\n");
 	    printf("Digite novamente: ");
 		scanf("%d", &denovo);
-		
-		if((0<denovo) && (denovo<100)) break;	
+
+		if((0<denovo) && (denovo<100)) break;
 	}
     return denovo;
 }
@@ -44,15 +40,25 @@ int pop (const void *x, const void *y)
 
 void mostrar (conj a)
 {
-	int i;
-	if(a.qtd==0)
-	    printf("vazio");
-	else 
+	int i,k;
+	if(a.qtd==0)printf("vazio");
+	else
+	{
+	printf("(");
 		for(i=0;i<a.qtd;i++)
-		   printf("|%0.2lf|", a.copy[i]);
-	printf("\n");	
-}  
+		{
+		if(i+1>=a.qtd)
+		{
+			printf("%0.2lf", a.copy[i]);
+			break;
+		}
+		else printf("%0.2lf,", a.copy[i]);
+		}
+	printf(")");
+	}
 
+	printf("\n");
+}
 
 void remover(conj *a)
 {
@@ -64,14 +70,13 @@ void remover(conj *a)
 		{
 			(*a).copy[j]=(*a).vetor[i];
 			j++;
-		}	
+		}
 	}
 	(*a).copy[j]=(*a).vetor[(*a).quant-1];
 	(*a).qtd=j+1;
-	
-	
-}
 
+
+}
 
 void ler(conj *a)
 {
@@ -79,12 +84,10 @@ void ler(conj *a)
 	printf("Digite a quantidade de numeros para o conjunto:");
 	scanf("%d", &(*a).quant);
 	if((*a).quant>100 || (*a).quant<0)(*a).quant=loop((*a).quant);
-	printf("Os numeros, por favor:");
+	printf("Os numeros, por favor:\n");
 	for(i=0;i<(*a).quant; i++)
-	   scanf("%lf", &(*a).vetor[i]);	
+		scanf("%lf", &(*a).vetor[i]);
 	remover(a);
-	
-	
 }
 int existe(double x, conj c)
 {
@@ -93,11 +96,10 @@ int existe(double x, conj c)
 	   {
 	   	if(c.copy[i]==x) return -1;
 	   }
-   		
-   	return 1;  
-	
-}
 
+   	return 1;
+
+}
 
 void uniao(conj a, conj b, conj *c)
 {
@@ -121,6 +123,7 @@ void uniao(conj a, conj b, conj *c)
 	printf("uniao AUB: ");
 	mostrar(*c);
 }
+
 void inter(conj a, conj b, conj *d)
 {
 	int i;
@@ -138,7 +141,7 @@ void inter(conj a, conj b, conj *d)
 	printf("\n");
 	printf("interseccao A B: ");
 	mostrar(*d);
-	
+
 }
 
 void dif(conj a, conj b, conj *e)
@@ -156,39 +159,36 @@ void dif(conj a, conj b, conj *e)
 		}
 	}
 	printf("\n");
-	printf("diferenca A-B: ");	
+	printf("diferenca A-B: ");
 	mostrar(*e);
-	
+
 }
+
 void t(conj*a,conj *b)
 {
 	printf("Conjuntos Numericos\n");
     printf("***Conjunto A***\n");
 	ler(a);
 	printf("***Conjunto B***\n");
-	ler(b); 
+	ler(b);
 	limpar();
-	
-	
 }
 
 void ex(conj a, conj b, conj *c,conj *d,conj *e)
 {
-	
 	printf("***OPERACOES DOS CONJUNTO ****\n");
 	printf("Conjunto de A:");
 	mostrar(a);
-	printf("Conjunto de B:");	
+	printf("Conjunto de B:");
 	mostrar(b);
 	uniao(a,b,c);
 	inter(a,b,d);
 	dif(a,b,e);
-	
-}	       
+}
 int main ()
 {
 	conj a,b,c,d,e;
-	t(&a,&b);      
+	t(&a,&b);
 	ex(a,b,&c,&d,&e);
 	return 0;
 }

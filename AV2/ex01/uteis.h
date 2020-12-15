@@ -3,9 +3,11 @@
 
 void limparTela();
 void limpa();
-void pausarTela();
-void lerString(char var[], int limite);
+void pausarTela(char msg[]);
+void lerString(char var[], int tam);
 
 
 #endif
+
+
 

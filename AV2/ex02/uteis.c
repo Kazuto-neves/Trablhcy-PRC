@@ -1,9 +1,8 @@
-#include "uteis.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "uteis.h"
 
 void limparTela(){
     #ifdef __unix__
@@ -17,12 +16,15 @@ void limparTela(){
 
 void limpa(){while ((getchar()) != '\n');}
 
-void pausarTela(){
+void pausarTela(char msg[]){
     #ifdef __unix__
-        system("read -r -p \"Pressione qualquer tecla...\" key");
+      if (msg!=NULL)printf("%s\n",msg);
+    system("read -r -p \"Pressione qualquer tecla...\" key");
     #elif _WIN32
+    if (msg!=NULL)printf("%s\n",msg);
         system("pause");
     #elif _WIN64
+    if (msg!=NULL)printf("%s\n",msg);
         system("pause");
     #endif
 }
@@ -33,3 +35,4 @@ void lerString(char var[], int limite){
     if (var[tam-1] == '\n')
         var[tam-1] = '\0';
 }
+
